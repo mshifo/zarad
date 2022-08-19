@@ -103,7 +103,8 @@
                 </div>
                 <!-- Left part END -->
                 <div class="col-lg-4 d-flex m-b30">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d227748.3825624477!2d75.65046970649679!3d26.88544791796718!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396c4adf4c57e281%3A0xce1c63a0cf22e09!2sJaipur%2C+Rajasthan!5e0!3m2!1sen!2sin!4v1500819483219" class="align-self-stretch radius-sm" style="border:0; width:100%; min-height:100%;" allowfullscreen></iframe>
+                <div id="googleMap" style="border:0; width:100%; min-height:100%;"></div>
+                    <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d227748.3825624477!2d75.65046970649679!3d26.88544791796718!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396c4adf4c57e281%3A0xce1c63a0cf22e09!2sJaipur%2C+Rajasthan!5e0!3m2!1sen!2sin!4v1500819483219" class="align-self-stretch radius-sm" style="border:0; width:100%; min-height:100%;" allowfullscreen></iframe> -->
                 </div>
 
             </div>
@@ -114,3 +115,32 @@
 <!-- Content END-->
 
 @endsection
+@push('custom-scripts')
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ config('voyager.googlemaps.key') }}&callback=initMap"></script>
+    <script type="application/javascript">
+        function initMap() {
+
+            var center = {lat: {{ $point[0]['lat'] }}, lng: {{ $point[0]['lng'] }}};
+
+
+            var map = new google.maps.Map(document.getElementById('googleMap'), {
+                zoom: {{ config('voyager.googlemaps.zoom') }},
+                center: center
+            });
+            var markers = [];
+
+            var marker = new google.maps.Marker({
+                position: {lat: {{ $point[0]['lat'] }}, lng: {{ $point[0]['lng'] }}},
+                map: map,
+                draggable: true
+            });
+            markers.push(marker);
+
+
+            google.maps.event.addListener(marker, 'dragend', function (event) {
+                document.getElementById('lat').value = this.position.lat();
+                document.getElementById('lng').value = this.position.lng();
+            });
+        }
+    </script>
+@endpush

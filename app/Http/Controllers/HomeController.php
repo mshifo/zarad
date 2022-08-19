@@ -98,14 +98,12 @@ class HomeController extends Controller
     {
         $background = PagesBackgroud::where('slug', 'contact')->first()->image;
         $contacts = Contact::first();
-        // $coordinates = Contact::first()->getCoordinates();
-        // $locations = Location::get()->translate(app()->getLocale());
+        $coordinates = Contact::first()->getCoordinates();
 
         return view('layout.contact')->with([
             'path'      => $background,
             'contacts'  => $contacts,
-            // 'point'     => $coordinates,
-            // 'locations' => $locations,
+            'point'     => $coordinates,
         ]);
     }
 
