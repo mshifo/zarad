@@ -7,10 +7,59 @@ use App\Faq;
 use App\Media;
 use App\Message;
 use App\PagesBackgroud;
+use App\Product;
+use App\Service;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    public function service($id)
+    {
+        $service = Service::findOrFail($id);
+        $services = Service::all();
+        $background = PagesBackgroud::where('slug', 'single-service')->first()->image;
+        return view('layout.service')->with([
+            'path'     => $background,
+            'services' => $services,
+            'service' => $service,
+        ]);
+    }
+
+    public function services()
+    {
+        $services = Service::all();
+        $background = PagesBackgroud::where('slug', 'services')->first()->image;
+        $media = Media::first();
+        return view('layout.services')->with([
+            'path'     => $background,
+            'media' => $media,
+            'services' => $services,
+        ]);
+    }
+
+    public function product($id)
+    {
+        $product = Product::findOrFail($id);
+        $products = Product::get();
+        $background = PagesBackgroud::where('slug', 'single-product')->first()->image;
+
+        return view('layout.product')->with([
+            'product' => $product,
+            'path' => $background,
+            'products' => $products,
+        ]);
+    }
+
+    public function products()
+    {
+        $products = Product::get();
+        $background = PagesBackgroud::where('slug', 'products')->first()->image;
+
+        return view('layout.products')->with([
+            'products' => $products,
+            'path' => $background,
+        ]);
+    }
 
     public function faq()
     {
