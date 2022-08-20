@@ -264,7 +264,43 @@
             </div>
         </div>
         <!-- Testimonials End -->
-        
+        <!-- Latest blog -->
+        <div class="section-full content-inner bg-white">
+            <div class="container">
+                <div class="section-head style2 text-center">
+                    <h2 class="title">{{__('titles.blog')}}</h2>
+                    <p>{{__('home.blog_description')}}</p>
+                </div>
+                <div class="blog-carousel owl-none owl-carousel">
+
+                    @foreach($blogs as $blog)
+                    <div class="item wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.3s">
+                        <div class="blog-post post-style-2">
+                            <div class="dlab-post-media dlab-img-effect">
+                                <a href="#"><img src="{{asset('storage/'.$blog->picture)}}" alt=""></a>
+                            </div>
+                            <div class="dlab-post-info">
+                                <div class="dlab-post-meta">
+                                    <ul>
+                                        <li class="post-date"> <strong>{{date('d M', strtotime($blog->date))}}</strong> <span> {{date('Y', strtotime($blog->date))}}</span> </li>
+
+                                        <li class="post-author"> By <a href="#">{{$blog->reporter}}</a> </li>
+                                    </ul>
+                                </div>
+                                <div class="dlab-post-title">
+                                    <h4 class="post-title"><a href="#">{{$blog->title}}</a></h4>
+                                </div>
+                                <!-- <div class="dlab-post-readmore">
+                                    <a href="blog-single.html" title="READ MORE" rel="bookmark" class="site-button btnhover21">READ MORE</a>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+
+                </div>
+            </div>
+        </div>
         <!-- Latest blog END -->
     </div>
     <!-- contact area END -->

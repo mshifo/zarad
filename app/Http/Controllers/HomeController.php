@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Blog;
 use App\Contact;
 use App\Faq;
 use App\Gallery;
@@ -27,6 +28,7 @@ class HomeController extends Controller
         $gallery = Gallery::all();
         $teams = Team::all();
         $testimonials = Testimonial::all();
+        $blogs = Blog::all();
 
         return view('layout.home')->with([
             'contacts'  => $contacts,
@@ -36,6 +38,7 @@ class HomeController extends Controller
             'galleries' => $gallery,
             'teams' => $teams,
             'testimonials' => $testimonials,
+            'blogs' => $blogs,
         ]);
     }
 
