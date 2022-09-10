@@ -21,14 +21,14 @@ class HomeController extends Controller
 {
     public function home()
     {
-        $contacts = Contact::first();
-        $sliders = Slider::all();
+        $contacts = Contact::first()->translate(app()->getLocale());
+        $sliders = Slider::all()->translate(app()->getLocale());
         $media = Media::first();
-        $categories = GalleryCategory::all();
-        $gallery = Gallery::all();
-        $teams = Team::all();
-        $testimonials = Testimonial::all();
-        $blogs = Blog::all();
+        $categories = GalleryCategory::all()->translate(app()->getLocale());
+        $gallery = Gallery::all()->translate(app()->getLocale());
+        $teams = Team::all()->translate(app()->getLocale());
+        $testimonials = Testimonial::all()->translate(app()->getLocale());
+        $blogs = Blog::all()->translate(app()->getLocale());
 
         return view('layout.home')->with([
             'contacts'  => $contacts,
@@ -44,10 +44,10 @@ class HomeController extends Controller
 
     public function service($id)
     {
-        $service = Service::findOrFail($id);
-        $services = Service::all();
+        $service = Service::findOrFail($id)->translate(app()->getLocale());
+        $services = Service::all()->translate(app()->getLocale());
         $background = PagesBackgroud::where('slug', 'single-service')->first()->image;
-        $contacts = Contact::first();
+        $contacts = Contact::first()->translate(app()->getLocale());
 
         return view('layout.service')->with([
             'path'     => $background,
@@ -59,10 +59,10 @@ class HomeController extends Controller
 
     public function services()
     {
-        $services = Service::all();
+        $services = Service::all()->translate(app()->getLocale());
         $background = PagesBackgroud::where('slug', 'services')->first()->image;
         $media = Media::first();
-        $contacts = Contact::first();
+        $contacts = Contact::first()->translate(app()->getLocale());
 
         return view('layout.services')->with([
             'path'     => $background,
@@ -74,10 +74,10 @@ class HomeController extends Controller
 
     public function product($id)
     {
-        $product = Product::findOrFail($id);
-        $products = Product::get();
+        $product = Product::findOrFail($id)->translate(app()->getLocale());
+        $products = Product::get()->translate(app()->getLocale());
         $background = PagesBackgroud::where('slug', 'single-product')->first()->image;
-        $contacts = Contact::first();
+        $contacts = Contact::first()->translate(app()->getLocale());
 
         return view('layout.product')->with([
             'product' => $product,
@@ -89,9 +89,9 @@ class HomeController extends Controller
 
     public function products()
     {
-        $products = Product::get();
+        $products = Product::get()->translate(app()->getLocale());
         $background = PagesBackgroud::where('slug', 'products')->first()->image;
-        $contacts = Contact::first();
+        $contacts = Contact::first()->translate(app()->getLocale());
 
         return view('layout.products')->with([
             'products' => $products,
@@ -102,10 +102,10 @@ class HomeController extends Controller
 
     public function faq()
     {
-        $faqs = Faq::get();
+        $faqs = Faq::get()->translate(app()->getLocale());
         $background = PagesBackgroud::where('slug', 'faq')->first()->image;
         $media = Media::first();
-        $contacts = Contact::first();
+        $contacts = Contact::first()->translate(app()->getLocale());
 
         return view('layout.faq')->with([
             'faqs' => $faqs,
@@ -138,7 +138,7 @@ class HomeController extends Controller
     public function contact()
     {
         $background = PagesBackgroud::where('slug', 'contact')->first()->image;
-        $contacts = Contact::first();
+        $contacts = Contact::first()->translate(app()->getLocale());
         $coordinates = Contact::first()->getCoordinates();
 
         return view('layout.contact')->with([
@@ -151,7 +151,7 @@ class HomeController extends Controller
     public function about()
     {
         $background = PagesBackgroud::where('slug', 'about')->first()->image;
-        $contacts = Contact::first();
+        $contacts = Contact::first()->translate(app()->getLocale());
         $about = Media::first();
 
         return view('layout.about')->with([

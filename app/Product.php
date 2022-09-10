@@ -3,10 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use TCG\Voyager\Traits\Translatable;
 
 class Product extends Model
 {
+    use Translatable;
+    protected $translatable = ['name', 'brief', 'description'];
+
     public function sizes()
     {
         return $this->belongsToMany(Size::class, 'product_sizes');
