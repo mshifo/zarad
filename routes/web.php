@@ -14,16 +14,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-
-Route::get('/', 'HomeController@home')->name('home');
-Route::get('/about', 'HomeController@about')->name('about');
-Route::get('/contact', 'HomeController@contact')->name('contact');
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
+    ],
+    function () {
+        Route::get('/', 'HomeController@home')->name('home');
+        Route::get('/about', 'HomeController@about')->name('about');
+        Route::get('/contact', 'HomeController@contact')->name('contact');
+        Route::get('/faq', 'HomeController@faq')->name('faq');
+        Route::get('/products', 'HomeController@products')->name('products');
+        Route::get('/products/{id}', 'HomeController@product')->name('product');
+        Route::get('/services', 'HomeController@services')->name('services');
+        Route::get('/services/{id}', 'HomeController@service')->name('service');
+    }
+);
 Route::post('/contact', 'HomeController@message')->name('message');
-Route::get('/faq', 'HomeController@faq')->name('faq');
-Route::get('/products', 'HomeController@products')->name('products');
-Route::get('/products/{id}', 'HomeController@product')->name('product');
-Route::get('/services', 'HomeController@services')->name('services');
-Route::get('/services/{id}', 'HomeController@service')->name('service');
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();

@@ -28,6 +28,30 @@
                         <li> <a href="{{route('about')}}">{{__('titles.about')}}</a></li>
                         <li> <a href="{{route('faq')}}">{{__('titles.faq')}}</a></li>
                         <li><a href="{{route('contact')}}">{{__('titles.contact')}}</a></li>
+                        <li>
+                            <a href="javascript:;">@if (LaravelLocalization::getCurrentLocale() == 'ar') <span class="fi fi-eg"></span> @else <span class="fi fi-us"></span> @endif<i class="fa fa-chevron-down"></i></a>
+                            <ul class="sub-menu right">
+                                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                <li><a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                        @if($localeCode == 'ar')
+                                        <span class="fi fi-eg"></span>  {{ $properties['native'] }}
+                                        @else
+                                        <span class="fi fi-us"></span>  {{ $properties['native'] }}
+                                        @endif
+                                    </a></li>
+                                @endforeach
+                            </ul>
+                        </li>
+                        <!-- <li><a href="{{route('contact')}}"><span class="fi fi-eg"></span></a></li>
+                        <ul>
+                            @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                            <li>
+                                <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                    {{ $properties['native'] }}
+                                </a>
+                            </li>
+                            @endforeach
+                        </ul> -->
                     </ul>
                     <div class="dlab-social-icon">
                         <ul>
